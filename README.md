@@ -4,7 +4,7 @@
 
 **Developer & self-hosting enthusiast**
 
-I build and maintain open-source tools for the self-hosted homelab community, along with the companion mobile apps that bring those services to your fingertips. 
+I build and maintain open-source tools for the self-hosted homelab community, along with the companion mobile apps that bring those services to your fingertips.
 
 I am passionate about creating seamless, highly functional software with a strong focus on clean, dark-themed, glassmorphism-inspired interfaces that make managing server environments intuitive.
 
@@ -22,24 +22,24 @@ I am passionate about creating seamless, highly functional software with a stron
   <tr>
     <td>
       <a href="https://github.com/chr0nzz/traefik-manager">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=chr0nzz&repo=traefik-manager&theme=tokyonight&hide_border=true" />
+        <img src="./profile/pin-traefik-manager.svg" />
       </a>
     </td>
     <td>
       <a href="https://github.com/chr0nzz/traefik-manager-mobile">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=chr0nzz&repo=traefik-manager-mobile&theme=tokyonight&hide_border=true" />
+        <img src="./profile/pin-traefik-manager-mobile.svg" />
       </a>
     </td>
   </tr>
   <tr>
     <td>
       <a href="https://github.com/chr0nzz/gatekeeper">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=chr0nzz&repo=gatekeeper&theme=tokyonight&hide_border=true" />
+        <img src="./profile/pin-gatekeeper.svg" />
       </a>
     </td>
     <td>
       <a href="https://github.com/chr0nzz/traefik-stack">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=chr0nzz&repo=traefik-stack&theme=tokyonight&hide_border=true" />
+        <img src="./profile/pin-traefik-stack.svg" />
       </a>
     </td>
   </tr>
@@ -60,7 +60,6 @@ Traefik Manager Mobile is also [available on Google Play](https://play.google.co
 ![Expo](https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white)
 ![React Native](https://img.shields.io/badge/React%20Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Traefik](https://img.shields.io/badge/Traefik-24A1C1?style=for-the-badge&logo=traefikproxy&logoColor=white)
 ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
@@ -76,7 +75,7 @@ Traefik Manager Mobile is also [available on Google Play](https://play.google.co
 
 <div align="center">
 
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=chr0nzz&show_icons=true&theme=tokyonight&hide_border=true" />
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=chr0nzz&layout=compact&theme=tokyonight&hide_border=true" />
+<img height="165" src="./profile/stats.svg" />
+<img height="165" src="./profile/top-langs.svg" />
 
 </div>
