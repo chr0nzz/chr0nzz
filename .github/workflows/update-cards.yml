@@ -1,0 +1,70 @@
+name: Update README cards
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate stats card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: username=chr0nzz&show_icons=true&theme=tokyonight&hide_border=true
+          path: profile/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate top languages card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: username=chr0nzz&layout=compact&theme=tokyonight&hide_border=true
+          path: profile/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate pin card for traefik-manager
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: pin
+          options: username=chr0nzz&repo=traefik-manager&theme=tokyonight&hide_border=true
+          path: profile/pin-traefik-manager.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate pin card for traefik-manager-mobile
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: pin
+          options: username=chr0nzz&repo=traefik-manager-mobile&theme=tokyonight&hide_border=true
+          path: profile/pin-traefik-manager-mobile.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate pin card for gatekeeper
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: pin
+          options: username=chr0nzz&repo=gatekeeper&theme=tokyonight&hide_border=true
+          path: profile/pin-gatekeeper.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate pin card for traefik-stack
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: pin
+          options: username=chr0nzz&repo=traefik-stack&theme=tokyonight&hide_border=true
+          path: profile/pin-traefik-stack.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/*.svg
+          git commit -m "Update README cards" || exit 0
+          git push
