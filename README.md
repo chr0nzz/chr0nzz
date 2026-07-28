@@ -22,24 +22,40 @@ I am passionate about creating seamless, highly functional software with a stron
   <tr>
     <td>
       <a href="https://github.com/chr0nzz/traefik-manager">
-        <img src="./profile/pin-traefik-manager.svg" />
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-traefik-manager-dark.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="./profile/pin-traefik-manager-light.svg" />
+          <img src="./profile/pin-traefik-manager-dark.svg" />
+        </picture>
       </a>
     </td>
     <td>
       <a href="https://github.com/chr0nzz/traefik-manager-mobile">
-        <img src="./profile/pin-traefik-manager-mobile.svg" />
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-traefik-manager-mobile-dark.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="./profile/pin-traefik-manager-mobile-light.svg" />
+          <img src="./profile/pin-traefik-manager-mobile-dark.svg" />
+        </picture>
       </a>
     </td>
   </tr>
   <tr>
     <td>
       <a href="https://github.com/chr0nzz/gatekeeper">
-        <img src="./profile/pin-gatekeeper.svg" />
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-gatekeeper-dark.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="./profile/pin-gatekeeper-light.svg" />
+          <img src="./profile/pin-gatekeeper-dark.svg" />
+        </picture>
       </a>
     </td>
     <td>
       <a href="https://github.com/chr0nzz/traefik-stack">
-        <img src="./profile/pin-traefik-stack.svg" />
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-traefik-stack-dark.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="./profile/pin-traefik-stack-light.svg" />
+          <img src="./profile/pin-traefik-stack-dark.svg" />
+        </picture>
       </a>
     </td>
   </tr>
@@ -75,7 +91,15 @@ Traefik Manager Mobile is also [available on Google Play](https://play.google.co
 
 <div align="center">
 
-<img height="165" src="./profile/stats.svg" />
-<img height="165" src="./profile/top-langs.svg" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/stats-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/stats-light.svg" />
+  <img height="165" src="./profile/stats-dark.svg" />
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/top-langs-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/top-langs-light.svg" />
+  <img height="165" src="./profile/top-langs-dark.svg" />
+</picture>
 
 </div>
