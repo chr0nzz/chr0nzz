@@ -4,14 +4,15 @@ on:
   push:
     branches: [main]
     paths:
+      - scripts/**
       - .github/workflows/update-cards.yml
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "23 6 * * *"
   workflow_dispatch:
 
-env:
-  DARK_OPTS: theme=tokyonight&hide_border=true
-  LIGHT_OPTS: title_color=2e7de9&icon_color=9854f1&text_color=3760bf&bg_color=ffffff&hide_border=true
+concurrency:
+  group: update-cards
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -19,108 +20,22 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - name: Generate stats card (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: stats
-          options: username=chr0nzz&show_icons=true&${{ env.DARK_OPTS }}
-          path: profile/stats-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate stats card (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: stats
-          options: username=chr0nzz&show_icons=true&${{ env.LIGHT_OPTS }}
-          path: profile/stats-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate top languages card (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: top-langs
-          options: username=chr0nzz&layout=compact&${{ env.DARK_OPTS }}
-          path: profile/top-langs-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate top languages card (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: top-langs
-          options: username=chr0nzz&layout=compact&${{ env.LIGHT_OPTS }}
-          path: profile/top-langs-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for traefik-manager (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=traefik-manager&${{ env.DARK_OPTS }}
-          path: profile/pin-traefik-manager-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for traefik-manager (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=traefik-manager&${{ env.LIGHT_OPTS }}
-          path: profile/pin-traefik-manager-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for traefik-manager-mobile (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=traefik-manager-mobile&${{ env.DARK_OPTS }}
-          path: profile/pin-traefik-manager-mobile-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for traefik-manager-mobile (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=traefik-manager-mobile&${{ env.LIGHT_OPTS }}
-          path: profile/pin-traefik-manager-mobile-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for gatekeeper (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=gatekeeper&${{ env.DARK_OPTS }}
-          path: profile/pin-gatekeeper-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for gatekeeper (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=gatekeeper&${{ env.LIGHT_OPTS }}
-          path: profile/pin-gatekeeper-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for traefik-stack (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=traefik-stack&${{ env.DARK_OPTS }}
-          path: profile/pin-traefik-stack-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card for traefik-stack (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: pin
-          options: username=chr0nzz&repo=traefik-stack&${{ env.LIGHT_OPTS }}
-          path: profile/pin-traefik-stack-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build profile cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: python3 scripts/build_profile.py
 
       - name: Commit cards
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add profile/*.svg
-          git commit -m "Update README cards" || exit 0
+          git add profile README.md
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Update README cards"
+          git pull --rebase origin main
           git push

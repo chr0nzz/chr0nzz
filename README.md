@@ -1,15 +1,34 @@
 <div align="center">
 
-# chr0nzz
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/masthead-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/masthead-light.svg" />
+  <img src="./profile/masthead-dark.svg" alt="chr0nzz · xyzlab.dev" />
+</picture>
 
-**Developer & self-hosting enthusiast**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/about-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/about-light.svg" />
+  <img src="./profile/about-dark.svg" alt="Developer &amp; self-hosting enthusiast" />
+</picture>
 
-I build and maintain open-source tools for the self-hosted homelab community, along with the companion mobile apps that bring those services to your fingertips.
-
-I am passionate about creating seamless, highly functional software with a strong focus on clean, dark-themed, glassmorphism-inspired interfaces that make managing server environments intuitive.
-
-[![Website](https://img.shields.io/badge/xyzlab.dev-7AA2F7?style=for-the-badge&logo=astro&logoColor=white)](https://xyzlab.dev)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/chr0nzz)
+<p align="center">
+  <a href="https://xyzlab.dev"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/btn-xyzlab-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./profile/btn-xyzlab-light.svg" />
+    <img src="./profile/btn-xyzlab-dark.svg" alt="xyzlab.dev" />
+  </picture></a>
+  <a href="https://ko-fi.com/chr0nzz"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/btn-kofi-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./profile/btn-kofi-light.svg" />
+    <img src="./profile/btn-kofi-dark.svg" alt="Ko-fi" />
+  </picture></a>
+  <a href="https://play.google.com/store/apps/details?id=dev.chr0nzz.traefikmanager"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/btn-play-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./profile/btn-play-light.svg" />
+    <img src="./profile/btn-play-dark.svg" alt="Google Play" />
+  </picture></a>
+</p>
 
 </div>
 
@@ -25,7 +44,7 @@ I am passionate about creating seamless, highly functional software with a stron
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-traefik-manager-dark.svg" />
           <source media="(prefers-color-scheme: light)" srcset="./profile/pin-traefik-manager-light.svg" />
-          <img src="./profile/pin-traefik-manager-dark.svg" />
+          <img src="./profile/pin-traefik-manager-dark.svg" alt="traefik-manager" />
         </picture>
       </a>
     </td>
@@ -34,7 +53,7 @@ I am passionate about creating seamless, highly functional software with a stron
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-traefik-manager-mobile-dark.svg" />
           <source media="(prefers-color-scheme: light)" srcset="./profile/pin-traefik-manager-mobile-light.svg" />
-          <img src="./profile/pin-traefik-manager-mobile-dark.svg" />
+          <img src="./profile/pin-traefik-manager-mobile-dark.svg" alt="traefik-manager-mobile" />
         </picture>
       </a>
     </td>
@@ -45,7 +64,7 @@ I am passionate about creating seamless, highly functional software with a stron
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-gatekeeper-dark.svg" />
           <source media="(prefers-color-scheme: light)" srcset="./profile/pin-gatekeeper-light.svg" />
-          <img src="./profile/pin-gatekeeper-dark.svg" />
+          <img src="./profile/pin-gatekeeper-dark.svg" alt="gatekeeper" />
         </picture>
       </a>
     </td>
@@ -54,7 +73,7 @@ I am passionate about creating seamless, highly functional software with a stron
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-traefik-stack-dark.svg" />
           <source media="(prefers-color-scheme: light)" srcset="./profile/pin-traefik-stack-light.svg" />
-          <img src="./profile/pin-traefik-stack-dark.svg" />
+          <img src="./profile/pin-traefik-stack-dark.svg" alt="traefik-stack" />
         </picture>
       </a>
     </td>
@@ -62,44 +81,44 @@ I am passionate about creating seamless, highly functional software with a stron
 </table>
 </div>
 
-Traefik Manager Mobile is also [available on Google Play](https://play.google.com/store/apps/details?id=dev.chr0nzz.traefikmanager).
-
----
-
-## Tech Stack
+## Activity
 
 <div align="center">
 
-![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Astro](https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
-![Expo](https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white)
-![React Native](https://img.shields.io/badge/React%20Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Traefik](https://img.shields.io/badge/Traefik-24A1C1?style=for-the-badge&logo=traefikproxy&logoColor=white)
-![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
-![Tailscale](https://img.shields.io/badge/Tailscale-242424?style=for-the-badge&logo=tailscale&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/heatmap-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/heatmap-light.svg" />
+  <img src="./profile/heatmap-dark.svg" alt="contribution activity" />
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/releases-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/releases-light.svg" />
+  <img src="./profile/releases-dark.svg" alt="latest releases" />
+</picture>
 
 </div>
 
----
-
-## GitHub Stats
+## Stats
 
 <div align="center">
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./profile/stats-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="./profile/stats-light.svg" />
-  <img height="165" src="./profile/stats-dark.svg" />
+  <img src="./profile/stats-dark.svg" alt="chr0nzz GitHub stats" />
 </picture>
+
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./profile/top-langs-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./profile/top-langs-light.svg" />
-  <img height="165" src="./profile/top-langs-dark.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/langs-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/langs-light.svg" />
+  <img src="./profile/langs-dark.svg" alt="language breakdown" />
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./profile/stack-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./profile/stack-light.svg" />
+  <img src="./profile/stack-dark.svg" alt="tech stack" />
 </picture>
 
 </div>
