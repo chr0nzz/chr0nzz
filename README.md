@@ -13,21 +13,9 @@
 </picture>
 
 <p align="center">
-  <a href="https://xyzlab.dev"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./profile/btn-xyzlab-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="./profile/btn-xyzlab-light.svg" />
-    <img src="./profile/btn-xyzlab-dark.svg" alt="xyzlab.dev" />
-  </picture></a>
-  <a href="https://ko-fi.com/chr0nzz"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./profile/btn-kofi-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="./profile/btn-kofi-light.svg" />
-    <img src="./profile/btn-kofi-dark.svg" alt="Ko-fi" />
-  </picture></a>
-  <a href="https://play.google.com/store/apps/details?id=dev.chr0nzz.traefikmanager"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./profile/btn-play-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="./profile/btn-play-light.svg" />
-    <img src="./profile/btn-play-dark.svg" alt="Google Play" />
-  </picture></a>
+  <a href="https://xyzlab.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="./profile/btn-xyzlab-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./profile/btn-xyzlab-light.svg" /><img src="./profile/btn-xyzlab-dark.svg" alt="xyzlab.dev" /></picture></a>
+  <a href="https://ko-fi.com/chr0nzz"><picture><source media="(prefers-color-scheme: dark)" srcset="./profile/btn-kofi-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./profile/btn-kofi-light.svg" /><img src="./profile/btn-kofi-dark.svg" alt="Ko-fi" /></picture></a>
+  <a href="https://play.google.com/store/apps/details?id=dev.chr0nzz.traefikmanager"><picture><source media="(prefers-color-scheme: dark)" srcset="./profile/btn-play-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./profile/btn-play-light.svg" /><img src="./profile/btn-play-dark.svg" alt="Google Play" /></picture></a>
 </p>
 
 </div>
