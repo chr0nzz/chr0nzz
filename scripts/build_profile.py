@@ -26,7 +26,7 @@ BUTTONS = [
     ('btn-play', 'google play', False),
 ]
 STACK = [
-    ('stack', ['go', 'typescript', 'python', 'astro', 'expo']),
+    ('stack', ['go', 'typescript', 'python', 'astro', 'kotlin']),
     ('infra', ['docker', 'traefik', 'cloudflare', 'tailscale', 'linux']),
 ]
 RELEASE_COUNT = 5
