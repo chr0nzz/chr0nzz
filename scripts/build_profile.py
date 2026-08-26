@@ -1,4 +1,5 @@
 import base64
+import bisect
 import itertools
 import json
 import os
@@ -31,6 +32,7 @@ STACK = [
 ]
 RELEASE_COUNT = 5
 LANG_COUNT = 6
+STAR_HISTORY = ['traefik-manager']
 
 THEMES = {
     'dark': {
@@ -137,10 +139,38 @@ def gql(query, variables, token):
     return payload['data']
 
 
-def fetch():
+STARS_QUERY = '''
+query($owner: String!, $name: String!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    stargazers(first: 100, after: $cursor, orderBy: {field: STARRED_AT, direction: ASC}) {
+      pageInfo { hasNextPage endCursor }
+      edges { starredAt }
+    }
+  }
+}
+'''
+
+
+def get_token():
     token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')
     if not token:
         raise SystemExit('GITHUB_TOKEN is not set')
+    return token
+
+
+def fetch_stars(name, token):
+    times = []
+    cursor = None
+    while True:
+        data = gql(STARS_QUERY, {'owner': LOGIN, 'name': name, 'cursor': cursor}, token)
+        conn = data['repository']['stargazers']
+        times += [e['starredAt'] for e in conn['edges']]
+        if not conn['pageInfo']['hasNextPage']:
+            return times
+        cursor = conn['pageInfo']['endCursor']
+
+
+def fetch(token):
     data = gql(QUERY, {'login': LOGIN, 'cursor': None}, token)
     user = data['user']
     repos = user['repositories']['nodes']
@@ -687,6 +717,78 @@ def render_stack(theme):
     return out + '</svg>'
 
 
+def nice_step(total):
+    for s in (10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000):
+        if total / s <= 4:
+            return s
+    return 100000
+
+
+def render_star_history(theme, name, times, now):
+    t = THEMES[theme]
+    w, h = 830, 220
+    total = len(times)
+    out = svg_open(w, h, t, f'{name} star history')
+    out += win_bar(w, h, t, '~/', f'{name} · star history')
+    if not times:
+        out += f'<text x="16" y="62" font-size="12.5" fill="{t["text3"]}">no stars yet</text>'
+        return out + '</svg>'
+    px0, px1 = 56, w - 24
+    py0, py1 = 52, h - 34
+    stamps = sorted(
+        datetime.fromisoformat(x.replace('Z', '+00:00')).timestamp() for x in times
+    )
+    day_end = datetime(now.year, now.month, now.day, tzinfo=timezone.utc).timestamp() + 86400
+    t0 = stamps[0]
+    span = max(day_end - t0, 86400)
+    step = nice_step(total)
+    y_max = max(((total + step - 1) // step) * step, step)
+
+    def sx(ts):
+        return px0 + (ts - t0) / span * (px1 - px0)
+
+    def sy(v):
+        return py1 - v / y_max * (py1 - py0)
+
+    gy = step
+    while gy <= y_max:
+        yy = sy(gy)
+        out += (
+            f'<line x1="{px0}" y1="{yy:.1f}" x2="{px1}" y2="{yy:.1f}" stroke="{t["border"]}"/>'
+            f'<text x="{px0 - 8}" y="{yy + 3.5:.1f}" font-size="10" fill="{t["text3"]}" '
+            f'text-anchor="end">{fmt(gy)}</text>'
+        )
+        gy += step
+    for i, frac in enumerate((0, 1 / 3, 2 / 3, 1)):
+        ts = t0 + span * frac
+        label = datetime.fromtimestamp(ts, timezone.utc).strftime('%b %Y').lower()
+        anchor = 'start' if i == 0 else 'end' if i == 3 else 'middle'
+        out += (
+            f'<text x="{sx(ts):.1f}" y="{h - 12}" font-size="10" fill="{t["text3"]}" '
+            f'text-anchor="{anchor}">{label}</text>'
+        )
+    n_pts = 120
+    pts = []
+    for i in range(n_pts + 1):
+        ts = t0 + span * i / n_pts
+        count = bisect.bisect_right(stamps, ts)
+        pts.append((sx(ts), sy(count)))
+    line = ' L'.join(f'{x:.1f} {y:.1f}' for x, y in pts)
+    out += f'<path d="M{px0} {py1} L{line} L{px1} {py1} Z" fill="{t["accent_dim"]}"/>'
+    out += (
+        f'<path d="M{line}" fill="none" stroke="{t["accent"]}" stroke-width="2" '
+        'stroke-linejoin="round"/>'
+    )
+    ex, ey = pts[-1]
+    out += f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="4" fill="{t["accent"]}"/>'
+    ly = ey - 10 if ey - 10 > 46 else ey + 20
+    out += (
+        f'<text x="{ex - 10:.1f}" y="{ly:.1f}" font-size="12" font-weight="700" '
+        f'fill="{t["text"]}" text-anchor="end">{fmt(total)}</text>'
+    )
+    return out + '</svg>'
+
+
 def collect_langs(repos):
     sizes, colors = {}, {}
     for r in repos:
@@ -722,8 +824,11 @@ def main():
             raise SystemExit('--data requires a path')
         payload = json.loads(Path(sys.argv[2]).read_text())
         user = payload.get('data', payload)['user']
+        stars_data = payload.get('stars', {})
     else:
-        user = fetch()
+        token = get_token()
+        user = fetch(token)
+        stars_data = {name: fetch_stars(name, token) for name in STAR_HISTORY}
     repos = [r for r in user['repositories']['nodes'] if not r['isArchived']]
     contrib = user['contributionsCollection']
     created = datetime.fromisoformat(user['createdAt'].replace('Z', '+00:00'))
@@ -744,6 +849,9 @@ def main():
     missing = [n for n in PINS if n not in by_name]
     if missing:
         print(f'warning: pinned repos missing from fetch: {", ".join(missing)}')
+    no_stars = [n for n in STAR_HISTORY if n not in stars_data]
+    if no_stars:
+        print(f'warning: no star data for: {", ".join(no_stars)}')
     for theme in THEMES:
         changed.append(write_if_changed(PROFILE / f'masthead-{theme}.svg', render_masthead(theme, d['stars'])))
         changed.append(write_if_changed(PROFILE / f'about-{theme}.svg', render_about(theme)))
@@ -758,6 +866,14 @@ def main():
             if name in by_name:
                 changed.append(
                     write_if_changed(PROFILE / f'pin-{name}-{theme}.svg', render_pin(theme, by_name[name]))
+                )
+        for name in STAR_HISTORY:
+            if name in stars_data:
+                changed.append(
+                    write_if_changed(
+                        PROFILE / f'star-history-{name}-{theme}.svg',
+                        render_star_history(theme, name, stars_data[name], now),
+                    )
                 )
     print(f'{sum(changed)} file(s) updated')
 

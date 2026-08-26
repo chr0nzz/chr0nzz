@@ -109,4 +109,10 @@
   <img src="./profile/stack-dark.svg" alt="tech stack" />
 </picture>
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/chr0nzz/chr0nzz/main/profile/star-history-traefik-manager-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/chr0nzz/chr0nzz/main/profile/star-history-traefik-manager-light.svg" />
+  <img src="https://raw.githubusercontent.com/chr0nzz/chr0nzz/main/profile/star-history-traefik-manager-dark.svg" alt="star history" />
+</picture>
+
 </div>
