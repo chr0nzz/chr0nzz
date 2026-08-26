@@ -121,6 +121,10 @@ query($login: String!, $cursor: String) {
 STAR = 'M5 0.4 6.46 3.36 9.73 3.83 7.36 6.14 7.92 9.39 5 7.85 2.08 9.39 2.64 6.14 0.27 3.83 3.54 3.36Z'
 
 
+class GqlError(RuntimeError):
+    pass
+
+
 def gql(query, variables, token):
     body = json.dumps({'query': query, 'variables': variables}).encode()
     req = urllib.request.Request(
@@ -135,7 +139,7 @@ def gql(query, variables, token):
     with urllib.request.urlopen(req, timeout=30) as resp:
         payload = json.load(resp)
     if payload.get('errors'):
-        raise SystemExit(f'graphql errors: {payload["errors"]}')
+        raise GqlError(f'graphql errors: {payload["errors"]}')
     return payload['data']
 
 
@@ -162,7 +166,13 @@ def fetch_stars(name, token):
     times = []
     cursor = None
     while True:
-        data = gql(STARS_QUERY, {'owner': LOGIN, 'name': name, 'cursor': cursor}, token)
+        try:
+            data = gql(STARS_QUERY, {'owner': LOGIN, 'name': name, 'cursor': cursor}, token)
+        except GqlError as e:
+            if 'FORBIDDEN' in str(e) or 'not accessible' in str(e):
+                print(f'warning: token cannot read stargazers for {name}; add a GH_PAT repo secret to enable the star chart')
+                return None
+            raise
         conn = data['repository']['stargazers']
         times += [e['starredAt'] for e in conn['edges']]
         if not conn['pageInfo']['hasNextPage']:
@@ -827,8 +837,12 @@ def main():
         stars_data = payload.get('stars', {})
     else:
         token = get_token()
-        user = fetch(token)
-        stars_data = {name: fetch_stars(name, token) for name in STAR_HISTORY}
+        try:
+            user = fetch(token)
+            fetched = {name: fetch_stars(name, token) for name in STAR_HISTORY}
+        except GqlError as e:
+            raise SystemExit(str(e))
+        stars_data = {k: v for k, v in fetched.items() if v is not None}
     repos = [r for r in user['repositories']['nodes'] if not r['isArchived']]
     contrib = user['contributionsCollection']
     created = datetime.fromisoformat(user['createdAt'].replace('Z', '+00:00'))
