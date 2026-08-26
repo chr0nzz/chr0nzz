@@ -147,6 +147,7 @@ STARS_QUERY = '''
 query($owner: String!, $name: String!, $cursor: String) {
   repository(owner: $owner, name: $name) {
     stargazers(first: 100, after: $cursor, orderBy: {field: STARRED_AT, direction: ASC}) {
+      totalCount
       pageInfo { hasNextPage endCursor }
       edges { starredAt }
     }
@@ -174,8 +175,16 @@ def fetch_stars(name, token):
                 return None
             raise
         conn = data['repository']['stargazers']
-        times += [e['starredAt'] for e in conn['edges']]
+        times += [e['starredAt'] for e in conn['edges'] if e.get('starredAt')]
         if not conn['pageInfo']['hasNextPage']:
+            total = conn['totalCount']
+            if total and not times:
+                print(
+                    f'warning: {name} reports {total} stars but the stargazer list came back empty; '
+                    'the token cannot list stargazers (use a classic PAT), skipping chart'
+                )
+                return None
+            print(f'{name}: {len(times)} of {total} stargazers fetched')
             return times
         cursor = conn['pageInfo']['endCursor']
 
