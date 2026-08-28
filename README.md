@@ -57,11 +57,11 @@
       </a>
     </td>
     <td>
-      <a href="https://github.com/chr0nzz/traefik-stack">
+      <a href="https://github.com/chr0nzz/tm-cli">
         <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-traefik-stack-dark.svg" />
-          <source media="(prefers-color-scheme: light)" srcset="./profile/pin-traefik-stack-light.svg" />
-          <img src="./profile/pin-traefik-stack-dark.svg" alt="traefik-stack" />
+          <source media="(prefers-color-scheme: dark)" srcset="./profile/pin-tm-cli-dark.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="./profile/pin-tm-cli-light.svg" />
+          <img src="./profile/pin-tm-cli-dark.svg" alt="tm-cli" />
         </picture>
       </a>
     </td>
